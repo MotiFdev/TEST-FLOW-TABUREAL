@@ -1,0 +1,52 @@
+@ScoreApi_HostAddress = http://localhost:5239
+
+### Display: all judges
+GET {{ScoreApi_HostAddress}}/api/Judges
+Accept: application/json
+
+###
+
+### Display: single judge
+GET {{ScoreApi_HostAddress}}/api/Judges/1
+Accept: application/json
+
+###
+
+### Add judge (judge number + PIN are generated server-side)
+POST {{ScoreApi_HostAddress}}/api/Judges
+Content-Type: application/json
+
+{
+  "fullName": "Judge 1 (John)",
+  "assignedRound": "Evening Gown"
+}
+
+###
+
+### Edit judge (name + round assignment only)
+PUT {{ScoreApi_HostAddress}}/api/Judges/1
+Content-Type: application/json
+
+{
+  "fullName": "Judge 1 (John D.)",
+  "assignedRound": "Evening Gown"
+}
+
+###
+
+### Delete judge (409 if the judge has recorded submissions)
+DELETE {{ScoreApi_HostAddress}}/api/Judges/1
+Accept: application/json
+
+###
+
+### Judge login (401 if judge number + PIN don't match)
+POST {{ScoreApi_HostAddress}}/api/Auth/judge-login
+Content-Type: application/json
+
+{
+  "judgeNumber": 1,
+  "pinCode": "1234"
+}
+
+###
